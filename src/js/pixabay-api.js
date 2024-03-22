@@ -14,6 +14,12 @@ export function fetchImg(query) {
     return fetch(`${BASE_URL}?key=${API_KEY}&q=${query}&${params}`)
     .then(response => {
         return response.json();
-    }).catch(err => console.log(err))
+    }).catch(err => {
+        return iziToast.error({
+            title: '',
+            message: 'Something went wrong. Please try again!',
+            position: 'topCenter',
+        })
+    })
     
 }

@@ -5,17 +5,18 @@ import { makeCardMarkup } from "./js/render-functions";
 
 const formEl = document.querySelector(".form")
 const inputEl = document.querySelector('.input');
-const loader = document.querySelector('.loader')
+const loaderCont = document.querySelector('.loader-container')
 const galleryList = document.querySelector('.gallery')
 
 formEl.addEventListener('submit', onBtnSearch);
+// loader.style.display = 'flex';
 
 function onBtnSearch(e) {
     e.preventDefault();
     const query = inputEl.value;
     fetchImg(query)
     .then((data) => {
-        loader.style.display = 'flex';
+        loaderCont.style.display = 'flex';
         formEl.reset();
         galleryList.innerHTML = '';
         const { totalHits, hits } = data;
@@ -26,11 +27,13 @@ function onBtnSearch(e) {
                 position: "topCenter",
             });  
         };
-        loader.style.display = 'none';
-        makeCardMarkup(hits);
+        setTimeout(() => {
+            loaderCont.style.display = 'none';
+            makeCardMarkup(hits);
+        }, 2000);
+        
     })
         .catch(err => {
-        console.log(err)
         return iziToast.error({
             title: '',
             message: 'Something went wrong. Please try again!',
