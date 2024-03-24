@@ -9,7 +9,7 @@ const loaderCont = document.querySelector('.loader-container')
 const galleryList = document.querySelector('.gallery')
 
 formEl.addEventListener('submit', onBtnSearch);
-// loader.style.display = 'flex';
+
 
 function onBtnSearch(e) {
     e.preventDefault();
@@ -21,16 +21,17 @@ function onBtnSearch(e) {
         galleryList.innerHTML = '';
         const { totalHits, hits } = data;
         if (totalHits === 0) {
+            loaderCont.style.display = 'none';
             return iziToast.warning({
                 title: '',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
                 position: "topCenter",
             });  
         };
-        setTimeout(() => {
-            loaderCont.style.display = 'none';
-            makeCardMarkup(hits);
-        }, 2000);
+        
+        loaderCont.style.display = 'none';
+        makeCardMarkup(hits);
+        
         
     })
         .catch(err => {
