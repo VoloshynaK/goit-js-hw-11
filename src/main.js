@@ -13,10 +13,11 @@ formEl.addEventListener('submit', onBtnSearch);
 
 function onBtnSearch(e) {
     e.preventDefault();
+    loaderCont.style.display = 'flex';
     const query = inputEl.value;
     fetchImg(query)
     .then((data) => {
-        loaderCont.style.display = 'flex';
+        
         formEl.reset();
         galleryList.innerHTML = '';
         const { totalHits, hits } = data;
